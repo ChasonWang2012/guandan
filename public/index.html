@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>掼蛋 - 局域网联机</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- 大厅 -->
+  <div id="lobby">
+    <div class="lobby-box">
+      <h1>掼蛋</h1>
+      <div class="subtitle">局域网联机 · 四人两副牌</div>
+      <input id="nickname" placeholder="请输入昵称" maxlength="10" value="玩家">
+      <button class="btn btn-primary" onclick="createRoom()">创建房间</button>
+      <button class="btn btn-ghost" onclick="showJoin()">加入房间</button>
+      <div id="joinArea" style="display:none;">
+        <input id="roomIdInput" placeholder="输入房间号" maxlength="6" style="text-transform:uppercase;">
+        <button class="btn btn-gold" onclick="joinRoom()">加入</button>
+      </div>
+      <div class="hint">房主创建房间后，其他玩家输入房间号加入，凑齐4人即可开局</div>
+    </div>
+  </div>
+
+  <!-- 等待房间 -->
+  <div id="waiting" style="display:none;">
+    <div class="waiting-box">
+      <div style="font-size:14px;color:#888;">房间号</div>
+      <div class="room-id-big" id="waitRoomId"></div>
+      <div class="room-url" id="waitRoomUrl"></div>
+      <div class="player-grid" id="playerGrid"></div>
+      <button class="btn btn-primary" id="readyBtn" onclick="toggleReady()">准备</button>
+      <button class="btn btn-gold" id="startBtn" onclick="startGame()" style="display:none;">开始游戏</button>
+      <button class="btn btn-ghost" onclick="leaveRoom()">离开房间</button>
+    </div>
+  </div>
+
+  <!-- 游戏桌 -->
+  <div id="game">
+    <div class="table-center">
+      <div class="level-indicator" id="levelIndicator">2</div>
+    </div>
+    <div class="status-bar">
+      本局打 <b id="levelBadge">2</b> · 第 <b id="roundBadge">1</b> 局<br>
+      <span class="team-tag team0">队A</span> <b id="teamLevel0">2</b> 级 ·
+      <span class="team-tag team1">队B</span> <b id="teamLevel1">2</b> 级
+    </div>
+    <!-- 四个座位 -->
+    <div class="seat seat-0" id="seat-0"></div>
+    <div class="seat seat-1" id="seat-1"></div>
+    <div class="seat seat-2" id="seat-2"></div>
+    <div class="seat seat-3" id="seat-3"></div>
+    <!-- 出牌区 -->
+    <div class="play-area play-area-0" id="play-0"></div>
+    <div class="play-area play-area-1" id="play-1"></div>
+    <div class="play-area play-area-2" id="play-2"></div>
+    <div class="play-area play-area-3" id="play-3"></div>
+    <!-- 操作 -->
+    <div class="actions">
+      <button class="btn btn-play" id="playBtn" onclick="doPlay()">出牌</button>
+      <button class="btn btn-pass" id="passBtn" onclick="doPass()">不出</button>
+    </div>
+    <!-- 手牌 -->
+    <div class="hand-area">
+      <div class="hand-cards" id="handCards"></div>
+    </div>
+    <!-- 聊天 -->
+    <div class="chat-box">
+      <div class="chat-msgs" id="chatMsgs"></div>
+      <div class="chat-input">
+        <input id="chatInput" placeholder="说点什么..." maxlength="50" onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()">发送</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/js/game.js"></script>
+</body>
+</html>
